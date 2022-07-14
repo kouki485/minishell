@@ -10,7 +10,16 @@
 #include <readline/history.h>
 #include "../libft/libft.h"
 
-typedef struct s_cmd	t_cmd;
+typedef struct s_cmd		t_cmd;
+typedef struct s_token		t_token;
+
+
+typedef struct s_token
+{
+	char	*data;
+	int		type;
+	t_token	*next;
+}		t_token;
 
 typedef struct s_cmd
 {
@@ -21,6 +30,14 @@ typedef struct s_cmd
 	t_list	*args;
 	t_cmd	*next;
 }		t_cmd;
+
+//enumで0、1、2が割り当てられた。
+typedef enum e_status
+{
+	STATE_IN_DQUOTE,
+	STATE_IN_QUOTE,
+	STATE_GENERAL,
+}	t_status;
 
 # define SUCCESS 0
 # define FAILURE 1
