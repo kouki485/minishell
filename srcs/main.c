@@ -10,8 +10,11 @@ void execute_minishell(char **environ)
 		line = readline("minishell> ");
 		if (line == NULL)
 			break;
+		add_history(line);
+		ft_lstnew(line);
 		printf("%s\n",line);
 	}
+	free(line);
 	exit(SUCCESS);
 }
 

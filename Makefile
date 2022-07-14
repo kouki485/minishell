@@ -12,12 +12,19 @@ SRCS_OBJS		= 	$(SRCS:.c=.o)
 
 LIBFTMAKE		= 	$(MAKE) -C $(LIBFT_PATH)
 LIBFTFLAG		=	-L$(LIBFT_PATH) -lft
-LDFLAGS			=	-L$(shell brew --prefix readline)/lib -lreadline
+#LDFLAGS			=	-L$(shell brew --prefix readline)/lib -lreadline
+
+ifeq ($(shell uname), Darwin)
+	LDFLAGS += -L$(shell brew --prefix readline)/lib -lreadline
+else
+	LDFLAGS += -L/usr/include -lreadline
+endif
 
 all:			$(NAME)
 
 $(NAME):		 $(SRCS_OBJS)
 				$(LIBFTMAKE)
+				$(LIBFTMAKE) bonus
 				$(CC) $(CFLAGS) $(SRCS_OBJS) $(LIBFTFLAG) $(LDFLAGS) -o $(NAME)
 
 .c.o:
