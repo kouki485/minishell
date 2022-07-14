@@ -3,7 +3,7 @@
 void execute_minishell(char **environ)
 {
 	char *line;
-	(void)environ;
+	t_cmd *cmd_list;
 
 	while (1)
 	{
@@ -11,8 +11,7 @@ void execute_minishell(char **environ)
 		if (line == NULL)
 			break;
 		add_history(line);
-		ft_lstnew(line);
-		printf("%s\n",line);
+		cmd_list = lex_pars(line);
 	}
 	free(line);
 	exit(SUCCESS);
