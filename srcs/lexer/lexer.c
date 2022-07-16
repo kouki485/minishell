@@ -53,15 +53,99 @@ int	get_char_type(char c)
 	return (res);
 }
 
+//">","<"のどちらかがきたら1を返す
+bool	compare_redirect(char *str)
+{
+	if (ft_strlen(str) == 1)
+	{
+		if (!ft_strcmp(str, ">") || !ft_strcmp(str, "<"))
+			return (true); 
+	}
+	return (false);
+}
+
+//連結させてstatusを返す
+int	check_return_status(t_token **token, int status)
+{
+	//もしtoken内にdataがあったら
+	//リストをつなげる
+	if ((*token)->data != NULL)
+	{
+		(*token)->next = token_new();
+		*token = (*token)->next;
+	}
+	return (status);
+}
+static int	print_lexer_error(char *str)
+{
+	printf("syntax error near unexpected token `%s\'\n", str);
+	g_signal.exit_status = 258;
+	g_signal.is_finished = true;
+	return (0);
+}
+
+int	check_status(int char_type, int status)
+{
+	if (char_type == CHAR_GREATER || char_type == CHAR_LESSER)
+		return (print_lexer_error("newline"));
+	else if (char_type == CHAR_PIPE)
+		return (print_lexer_error("|"));
+	if (status == STATE_IN_DQUOTE)
+		return (print_lexer_error("\""));
+	else if (status == STATE_IN_QUOTE)
+		return (print_lexer_error("\'"));
+	return (1);
+}
+
+int	join_return_status(t_token **token, char *str, int char_type, int status)
+{
+	//-1かつ、dataの中身が(">","<")だったら
+	if (char_type == CHAR_GENERAL && compare_redirect((*token)->data))
+	//statusを書き換える
+		status = check_return_status(&(*token), status);
+	//strjoinしてつなげる前のやつはfree
+	(*token)->data = for_free(ft_strjoin((*token)->data, str), (*token)->data);
+	return (status);
+}
+
 int	assign_general(t_token **token, char *input, int char_type)
 {
 	int		status;
 	char	*str;
 
+	//charをchar*に変換
 	str = ft_substr(input, 0 , 1);
-	//この処理がよくわからない。
+	//strjoinして繋げてstatusに代入
 	if (char_type == CHAR_QOUTE)
-		status = join_return_status
+		status = join_return_status(&(*token), str, char_type, STATE_IN_QUOTE);
+	else if (char_type == CHAR_DQOUTE)
+		status = join_return_status(&(*token), str, char_type, STATE_IN_DQUOTE);
+	else if (char_type == CHAR_GENERAL)
+		status = join_return_status(&(*token), str, char_type, STATE_GENERAL);
+	else if (char_type == CHAR_WHITESPACE)
+	//リストを連結させてstatusを返す
+		status = check_return_status(&(*token), STATE_GENERAL);
+	else
+		status = check_token_return_status(&(*token), str, char_type, STATE_GENERAL);
+	free(str);
+	return (status);
+}
+
+int	check_token_return_status(t_token **token, char *input, int char_type, int status)
+{
+	if (char_type == CHAR_PIPE)
+	{
+		status = check_return_status(&(*token), status);
+		status = join_return_status(&(*token), input, char_type, status);
+		return (check_return_status(&(*token), status));
+	}
+	else if (compare_redirect((*token)->data))
+	{
+		status = join_return_status(&(*token), input, char_type, status);
+		return (check_return_status(&(*token), status));
+	}
+	status = check_return_status(&(*token), status);
+	return (join_return_status(&(*token), input, char_type, status));
 }
 
 int	lexer_build(char *input, t_token **lexerbuf)
@@ -71,11 +155,15 @@ int	lexer_build(char *input, t_token **lexerbuf)
 	char	*input_tmp;
 	t_token	*token;
 	
+	//新しくリストを作る
 	token = token_new();
 	*lexerbuf = token;
+	//statusに2を代入
 	status = STATE_GENERAL;
+	//lineがある限り
 	while (*input)
 	{
+		//lineを一文字ずつ比較
 		char_type = get_char_type(*input);
 		if (status == STATE_GENERAL)
 			status = assign_general(&token, input, char_type);
@@ -86,8 +174,9 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
 {
 	int		res;
 	t_token	*lexerbuf;
-	
-	res = lex_build(input, &lexerbuf);
+
+	//lexerを作る
+	res = lexer_build(input, &lexerbuf);
 	free(input);
 	if (res == 0 || lexerbuf->data == NULL)
 		return (NULL);

@@ -39,6 +39,7 @@ typedef enum e_status
 	STATE_GENERAL,
 }	t_status;
 
+char	*for_free(char *res, char *free_str);
 # define SUCCESS 0
 # define FAILURE 1
 

@@ -11,7 +11,8 @@ void execute_minishell(char **environ)
 		if (line == NULL)
 			break;
 		add_history(line);
-		cmd_list = lex_pars(line);
+		//lexerしてlineをコマンドにわける
+		cmd_list = lex_pars(line, cmd_list);
 	}
 	free(line);
 	exit(SUCCESS);
