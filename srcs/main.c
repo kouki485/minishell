@@ -5,6 +5,7 @@ void execute_minishell(char **environ)
 	char *line;
 	t_cmd *cmd_list;
 
+	(void)environ;
 	while (1)
 	{
 		line = readline("minishell> ");

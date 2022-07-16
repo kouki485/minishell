@@ -2,6 +2,7 @@
 # define LEXER_H
 
 #include "../libft/libft.h"
+#include <stdbool.h>
 typedef enum e_token_type
 {
 	CHAR_GENERAL		= -1,

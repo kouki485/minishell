@@ -5,7 +5,7 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include <libc.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../libft/libft.h"
@@ -39,6 +39,7 @@ typedef enum e_status
 	STATE_GENERAL,
 }	t_status;
 
+t_cmd	*lex_pars(char *input, t_cmd *cmd_list);
 char	*for_free(char *res, char *free_str);
 # define SUCCESS 0
 # define FAILURE 1

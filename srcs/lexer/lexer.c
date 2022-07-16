@@ -58,7 +58,7 @@ bool	compare_redirect(char *str)
 {
 	if (ft_strlen(str) == 1)
 	{
-		if (!ft_strcmp(str, ">") || !ft_strcmp(str, "<"))
+		if (!ft_strncmp(str, ">", 1) || !ft_strncmp(str, "<", 1))
 			return (true); 
 	}
 	return (false);
@@ -76,14 +76,15 @@ int	check_return_status(t_token **token, int status)
 	}
 	return (status);
 }
+
 static int	print_lexer_error(char *str)
 {
 	printf("syntax error near unexpected token `%s\'\n", str);
-	g_signal.exit_status = 258;
-	g_signal.is_finished = true;
+	// g_signal.exit_status = 258;
+	// g_signal.is_finished = true;
 	return (0);
 }
-
+//error処理
 int	check_status(int char_type, int status)
 {
 	if (char_type == CHAR_GREATER || char_type == CHAR_LESSER)
@@ -152,7 +153,7 @@ int	lexer_build(char *input, t_token **lexerbuf)
 {
 	int		status;
 	int		char_type;
-	char	*input_tmp;
+	//char	*input_tmp;
 	t_token	*token;
 	
 	//新しくリストを作る
@@ -168,6 +169,7 @@ int	lexer_build(char *input, t_token **lexerbuf)
 		if (status == STATE_GENERAL)
 			status = assign_general(&token, input, char_type);
 	}
+	return (0);
 }
 
 t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
@@ -180,5 +182,5 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
 	free(input);
 	if (res == 0 || lexerbuf->data == NULL)
 		return (NULL);
-	rerurn (cmd_list);
+	return (cmd_list);
 }
