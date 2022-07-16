@@ -29,7 +29,7 @@ t_token	*token_new(void)
 	return (res);
 }
 
-//strcmp使った方がいいかも？
+//strcmp使った方がいいかも？ >> 確かに
 //charを比較してそれを返してる。
 int	get_char_type(char c)
 {
@@ -105,6 +105,7 @@ int	join_return_status(t_token **token, char *str, int char_type, int status)
 		status = check_return_status(&(*token), status);
 	//strjoinしてつなげる前のやつはfree
 	(*token)->data = for_free(ft_strjoin((*token)->data, str), (*token)->data);
+	printf("\x1b[36m[debug] : status = %d\n\033[m", status);
 	return (status);
 }
 
@@ -113,8 +114,9 @@ int	assign_general(t_token **token, char *input, int char_type)
 	int		status;
 	char	*str;
 
-	//charをchar*に変換
+	//char*をcharに変換
 	str = ft_substr(input, 0 , 1);
+	printf("\x1b[36m[debug] : str = %s\n\033[m", str);
 	//strjoinして繋げてstatusに代入
 	if (char_type == CHAR_QOUTE)
 		status = join_return_status(&(*token), str, char_type, STATE_IN_QUOTE);
@@ -165,8 +167,14 @@ int	lexer_build(char *input, t_token **lexerbuf)
 	{
 		//lineを一文字ずつ比較
 		char_type = get_char_type(*input);
+		printf("\x1b[36m[debug] : char_type = %d\n\033[m", char_type);
 		if (status == STATE_GENERAL)
 			status = assign_general(&token, input, char_type);
+//		else if (status == STATE_IN_QUOTE)
+//			status = chstatus_end(token, input, char_type, STATE_IN_QUOTE);
+//		else if (status == STATE_IN_DQUOTE)
+//			status = chstatus_end(token, input, char_type, STATE_IN_DQUOTE);
+		(*input)++;
 	}
 	return (0);
 }

@@ -8,6 +8,7 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
 	int		res;
 	t_token	*lexerbuf;
 
+	printf("\x1b[36m[debug] : input = %s\n\033[m", input);
 	//lexerを作る
 	res = lexer_build(input, &lexerbuf);
 	free(input);
