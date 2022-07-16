@@ -5,41 +5,28 @@
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <signal.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdbool.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stdbool.h>
 #include "../libft/libft.h"
+//# include "./get_next_line.h"
+# include "./lexer.h"
+//# include "./builtin.h"
+//# include "./env.h"
+//# include "./execute.h"
+//# include "./expand.h"
+# include "./parser.h"
+//# include "./utils.h"
 
-typedef struct s_cmd		t_cmd;
-typedef struct s_token		t_token;
-
-
-typedef struct s_token
-{
-	char	*data;
-	int		type;
-	t_token	*next;
-}		t_token;
-
-typedef struct s_cmd
-{
-	char	cmd;
-	int		fd_out;
-	int		fd_in;
-
-	t_list	*args;
-	t_cmd	*next;
-}		t_cmd;
-
-//enumで0、1、2が割り当てられた。
-typedef enum e_status
-{
-	STATE_IN_DQUOTE,
-	STATE_IN_QUOTE,
-	STATE_GENERAL,
-}	t_status;
-
-t_cmd	*lex_pars(char *input, t_cmd *cmd_list);
 char	*for_free(char *res, char *free_str);
 # define SUCCESS 0
 # define FAILURE 1

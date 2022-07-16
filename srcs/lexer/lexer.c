@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include "../includes/lexer.h"
 
 //tokenリストを作成し、要素を初期化。
 t_token	*token_new(void)
@@ -170,17 +169,4 @@ int	lexer_build(char *input, t_token **lexerbuf)
 			status = assign_general(&token, input, char_type);
 	}
 	return (0);
-}
-
-t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
-{
-	int		res;
-	t_token	*lexerbuf;
-
-	//lexerを作る
-	res = lexer_build(input, &lexerbuf);
-	free(input);
-	if (res == 0 || lexerbuf->data == NULL)
-		return (NULL);
-	return (cmd_list);
 }
