@@ -28,6 +28,5 @@ typedef struct s_cmd
 t_cmd		*lex_pars(char *input, t_cmd *cmd_list);
 t_cmd		*cmd_new(void );
 t_redirect	*redirect_new(void );
-void		print_pars(t_cmd *cmd_list);
 
 #endif
