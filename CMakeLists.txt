@@ -59,4 +59,4 @@ add_executable(minishell
         srcs/lexer/lexer.c
         srcs/parser/parser.c
         srcs/main.c
-        srcs/debug/debug_lexerbuf.c includes/debug.h)
+        srcs/debug/debug_lexerbuf.c includes/debug.h srcs/parser/parse_utils.c)
