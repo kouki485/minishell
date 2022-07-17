@@ -12,8 +12,8 @@ void execute_minishell(char **environ)
 		if (line == NULL)
 			break;
 		add_history(line);
-		//lexerしてlineをコマンドにわける
 		cmd_list = lex_pars(line, cmd_list);
+		printf("\x1b[36m[debug] : return main.c\n\033[m");
 	}
 	free(line);
 	exit(SUCCESS);

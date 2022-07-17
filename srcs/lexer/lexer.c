@@ -21,7 +21,7 @@ int	get_char_type(char c)//引数のcに概要するマクロ定義したint値�
 	return (res);
 }
 
-t_token	*token_new(void)
+t_token	*token_new(void)//ft_lstnewの亜種。
 {
 	t_token	*res;
 
@@ -32,7 +32,7 @@ t_token	*token_new(void)
 	return (res);
 }
 
-int	chstatus_end(t_token *token, char *input, int char_type, int status)
+int	chstatus_end(t_token *token, char *input, int char_type, int status)//[']や["]の文字を読み取る関数。動きは他と同じ。
 {
 	char	*str;
 
@@ -56,7 +56,7 @@ bool	compare_redirect(char *str)
 	return (false);
 }
 
-int	check_return_status(t_token **token, int status)
+int	check_return_status(t_token **token, int status)//1つのノードが区切りを迎えた時に、ノードを新規生成し繋げる関数。
 {
 	if ((*token)->data != NULL)
 	{
@@ -66,7 +66,7 @@ int	check_return_status(t_token **token, int status)
 	return (status);
 }
 
-int	join_return_status(t_token **token, char *str, int char_type, int status)
+int	join_return_status(t_token **token, char *str, int char_type, int status)//statusがredirectでないなら、リスト構造のtoken->dataに1文字詰めて、元のstrをfreeする関数
 {
 	if (char_type == CHAR_GENERAL && compare_redirect((*token)->data))
 		status = check_return_status(&(*token), status);
@@ -78,7 +78,7 @@ int	join_return_status(t_token **token, char *str, int char_type, int status)
 
 int	check_token_return_status(t_token **token, char *input, int char_type, int status)
 {
-	if (char_type == CHAR_PIPE)
+	if (char_type == CHAR_PIPE)//char_typeが[|]の時、token->dataに格納し、ノードを新規生成し繋げる挙動。
 	{
 		status = check_return_status(&(*token), status);
 		status = join_return_status(&(*token), input, char_type, status);
@@ -108,7 +108,7 @@ int	assign_general(t_token **token, char *input, int char_type)
 		status = join_return_status(&(*token), str, char_type, STATE_GENERAL);
 	else if (char_type == CHAR_WHITESPACE)//char_typeが[ ]の時
 		status = check_return_status(&(*token), STATE_GENERAL);
-	else
+	else//char_typeが[<, >, |]とかの時
 		status = check_token_return_status(&(*token), str, char_type, STATE_GENERAL);
 	free(str);
 	return (status);
@@ -122,8 +122,7 @@ static int	print_lexer_error(char *str)
 	return (0);
 }
 
-//error処理
-int	check_status(int char_type, int status)
+int	check_status(int char_type, int status)//文字リテラルが不正な状態で終わってないかチェックする関数。
 {
 	if (char_type == CHAR_GREATER || char_type == CHAR_LESSER)
 		return (print_lexer_error("newline"));
