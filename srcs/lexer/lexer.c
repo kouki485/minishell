@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-int	get_char_type(char c)
+int	get_char_type(char c)//引数のcに概要するマクロ定義したint値を返す関数。
 {
 	char	res;
 
@@ -71,6 +71,7 @@ int	join_return_status(t_token **token, char *str, int char_type, int status)
 	if (char_type == CHAR_GENERAL && compare_redirect((*token)->data))
 		status = check_return_status(&(*token), status);
 	(*token)->data = for_free(ft_strjoin((*token)->data, str), (*token)->data);
+	printf("\x1b[36m[debug] : (*token)->data = %s\n\033[m", (*token)->data);
 	printf("\x1b[36m[debug] : status = %d\n\033[m", status);
 	return (status);
 }
@@ -97,15 +98,15 @@ int	assign_general(t_token **token, char *input, int char_type)
 	int		status;
 	char	*str;
 
-	str = ft_substr(input, 0 , 1);
+	str = ft_substr(input, 0 , 1);//先頭アドレスから1文字抽出している。
 	printf("\x1b[36m[debug] : str = %s\n\033[m", str);
-	if (char_type == CHAR_QOUTE)
+	if (char_type == CHAR_QOUTE)//char_typeが[']の時
 		status = join_return_status(&(*token), str, char_type, STATE_IN_QUOTE);
-	else if (char_type == CHAR_DQOUTE)
+	else if (char_type == CHAR_DQOUTE)//char_typeが["]の時
 		status = join_return_status(&(*token), str, char_type, STATE_IN_DQUOTE);
-	else if (char_type == CHAR_GENERAL)
+	else if (char_type == CHAR_GENERAL)//char_typeが[通常文字]の時
 		status = join_return_status(&(*token), str, char_type, STATE_GENERAL);
-	else if (char_type == CHAR_WHITESPACE)
+	else if (char_type == CHAR_WHITESPACE)//char_typeが[ ]の時
 		status = check_return_status(&(*token), STATE_GENERAL);
 	else
 		status = check_token_return_status(&(*token), str, char_type, STATE_GENERAL);
@@ -139,21 +140,20 @@ int	lexer_build(char *input, t_token **lexerbuf)
 {
 	int		status;
 	int		char_type;
-	//char	*input_tmp;
 	t_token	*token;
 	
 	token = token_new();
 	*lexerbuf = token;
 	status = STATE_GENERAL;
-	while (*input)
+	while (*input)//引数で送られたinputを一文字ずつ属性を[通常文字], ['], ["] の3つに分けながら、statusを更新していく。
 	{
 		char_type = get_char_type(*input);
 		printf("\x1b[36m[debug] : char_type = %d\n\033[m", char_type);
-		if (status == STATE_GENERAL)
+		if (status == STATE_GENERAL)//[通常文字]
 			status = assign_general(&token, input, char_type);
-		else if (status == STATE_IN_QUOTE)
+		else if (status == STATE_IN_QUOTE)//[']
 			status = chstatus_end(token, input, char_type, STATE_IN_QUOTE);
-		else if (status == STATE_IN_DQUOTE)
+		else if (status == STATE_IN_DQUOTE)//["]
 			status = chstatus_end(token, input, char_type, STATE_IN_DQUOTE);
 		input++;
 	}
