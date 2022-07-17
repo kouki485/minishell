@@ -26,6 +26,7 @@
 //# include "./expand.h"
 # include "./parser.h"
 //# include "./utils.h"
+# include "./debug.h"
 
 char	*for_free(char *res, char *free_str);
 # define SUCCESS 0
