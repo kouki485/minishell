@@ -22,6 +22,7 @@ void execute_minishell(char **environ)
 
 int main(int argc, char **argv)
 {
+	//環境変数
 	extern char **environ;
 	(void)argv;
 

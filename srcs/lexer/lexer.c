@@ -68,9 +68,9 @@ int	check_return_status(t_token **token, int status)//1つのノードが区切�
 
 int	join_return_status(t_token **token, char *str, int char_type, int status)//statusがredirectでないなら、リスト構造のtoken->dataに1文字詰めて、元のstrをfreeする関数
 {
-	if (char_type == CHAR_GENERAL && compare_redirect((*token)->data))
-		status = check_return_status(&(*token), status);
-	(*token)->data = for_free(ft_strjoin((*token)->data, str), (*token)->data);
+	if (char_type == CHAR_GENERAL && compare_redirect((*token)->data))//[通常文字]かつ、[<],[>]でないとき
+		status = check_return_status(&(*token), status);//nodeをつなげる
+	(*token)->data = for_free(ft_strjoin((*token)->data, str), (*token)->data);//dataとstrを連結後、strをfreeしてNULL埋め、そしてdataに代入
 	printf("\x1b[36m[debug] : (*token)->data = %s\n\033[m", (*token)->data);
 	printf("\x1b[36m[debug] : status = %d\n\033[m", status);
 	return (status);
@@ -84,7 +84,7 @@ int	check_token_return_status(t_token **token, char *input, int char_type, int s
 		status = join_return_status(&(*token), input, char_type, status);
 		return (check_return_status(&(*token), status));
 	}
-	else if (compare_redirect((*token)->data))
+	else if (compare_redirect((*token)->data))dataの中身が[<],[>]のとき
 	{
 		status = join_return_status(&(*token), input, char_type, status);
 		return (check_return_status(&(*token), status));
@@ -101,7 +101,7 @@ int	assign_general(t_token **token, char *input, int char_type)
 	str = ft_substr(input, 0 , 1);//先頭アドレスから1文字抽出している。
 	printf("\x1b[36m[debug] : str = %s\n\033[m", str);
 	if (char_type == CHAR_QOUTE)//char_typeが[']の時
-		status = join_return_status(&(*token), str, char_type, STATE_IN_QUOTE);
+		status = join_return_status(&(*token), str, char_type, STATE_IN_QUOTE);//リスト構造のtoken->dataに1文字詰める
 	else if (char_type == CHAR_DQOUTE)//char_typeが["]の時
 		status = join_return_status(&(*token), str, char_type, STATE_IN_DQUOTE);
 	else if (char_type == CHAR_GENERAL)//char_typeが[通常文字]の時
@@ -137,25 +137,25 @@ int	check_status(int char_type, int status)//文字リテラルが不正な状�
 
 int	lexer_build(char *input, t_token **lexerbuf)
 {
-	int		status;
-	int		char_type;
+	int		status;//['],["],[通常文字]かを判別
+	int		char_type;//['],["],[|],[ ],[<],[>],[通常文字]かを判別
 	t_token	*token;
 	
 	token = token_new();
 	*lexerbuf = token;
 	status = STATE_GENERAL;
-	while (*input)//引数で送られたinputを一文字ずつ属性を[通常文字], ['], ["] の3つに分けながら、statusを更新していく。
+	while (*input)//引数で送られたinputを一文字ずつ属性を[通常文字], ['], ["] の3つに分けながら、statusを更新していく
 	{
 		char_type = get_char_type(*input);
 		printf("\x1b[36m[debug] : char_type = %d\n\033[m", char_type);
-		if (status == STATE_GENERAL)//[通常文字]
+		if (status == STATE_GENERAL)//[通常文字],2
 			status = assign_general(&token, input, char_type);
-		else if (status == STATE_IN_QUOTE)//[']
+		else if (status == STATE_IN_QUOTE)//['],1
 			status = chstatus_end(token, input, char_type, STATE_IN_QUOTE);
-		else if (status == STATE_IN_DQUOTE)//["]
+		else if (status == STATE_IN_DQUOTE)//["],0
 			status = chstatus_end(token, input, char_type, STATE_IN_DQUOTE);
 		input++;
 	}
-	debug_lexerbuf(lexerbuf);
+	//lsdebug_lexerbuf(lexerbuf);
 	return (check_status(char_type, status));
 }
