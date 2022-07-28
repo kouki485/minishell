@@ -107,8 +107,9 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
 	res = lexer_build(input, &lexerbuf);
 	free(input);
 
-	if (res == 0 || lexerbuf->data == NULL)
+	if (res == 0 && lexerbuf->data == NULL)
 		return (NULL);
+
 	if (res == 1)
 	{
 		cp_cmd_list = cmd_new();

@@ -84,7 +84,7 @@ int	check_token_return_status(t_token **token, char *input, int char_type, int s
 		status = join_return_status(&(*token), input, char_type, status);
 		return (check_return_status(&(*token), status));
 	}
-	else if (compare_redirect((*token)->data))dataの中身が[<],[>]のとき
+	else if (compare_redirect((*token)->data))//dataの中身が[<],[>]のとき
 	{
 		status = join_return_status(&(*token), input, char_type, status);
 		return (check_return_status(&(*token), status));
@@ -156,6 +156,6 @@ int	lexer_build(char *input, t_token **lexerbuf)
 			status = chstatus_end(token, input, char_type, STATE_IN_DQUOTE);
 		input++;
 	}
-	//lsdebug_lexerbuf(lexerbuf);
+	debug_lexerbuf(lexerbuf);
 	return (check_status(char_type, status));
 }
