@@ -18,6 +18,7 @@ int	get_char_type(char c)//引数のcに概要するマクロ定義したint値�
 		res = CHAR_LESSER;
 	else
 		res = CHAR_GENERAL;
+	printf("\x1b[36m[debug] : res = %d\n\033[m", res);
 	return (res);
 }
 

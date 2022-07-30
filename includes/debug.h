@@ -8,5 +8,6 @@
 #include "minishell.h"
 
 void debug_lexerbuf(t_token **lexerbuf);
+void debug_cmd_list(t_cmd *cmd_list);
 
 #endif //MINISHELL_DEBUG_H

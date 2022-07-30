@@ -96,8 +96,7 @@ void	free_token_list(t_token *token_list)
 	token_list = NULL;
 }
 
-//inputにはlineが入ってくる
-t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
+t_cmd	*lex_pars(char *input, t_cmd *cmd_list)//inputにはlineが入ってくる
 {
 	int		res;
 	t_token	*lexerbuf;
@@ -117,5 +116,7 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)
 		parser(lexerbuf, cp_cmd_list, &res);
 	}
 	free_token_list(lexerbuf);
+
+	debug_cmd_list(cmd_list);
 	return (cmd_list);
 }
