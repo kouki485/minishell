@@ -19,6 +19,7 @@
 # include <stdbool.h>
 #include "../libft/libft.h"
 //# include "./get_next_line.h"
+#include "builtin.h"
 # include "./lexer.h"
 //# include "./builtin.h"
 //# include "./env.h"

@@ -46,6 +46,7 @@ void	insert_general_list(t_list **args, t_token *token)
 {
 	(*args)->content = ft_strdup(token->data);
 	(*args)->next = ft_lstnew(NULL);
+	//ここをやる意味とは？
 	*args = (*args)->next;
 }
 
@@ -118,5 +119,7 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)//inputにはlineが入ってくる
 	free_token_list(lexerbuf);
 
 	debug_cmd_list(cmd_list);
+	// printf("%p\n",cmd_list->args->next->next);
+	// printf("%s\n",cmd_list->args->content);
 	return (cmd_list);
 }
