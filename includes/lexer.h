@@ -1,8 +1,7 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "minishell.h"
-#include "parser.h"
+# include "minishell.h"
 
 typedef enum e_token_type
 {
@@ -24,15 +23,6 @@ typedef enum e_status
 }	t_status;
 
 typedef struct s_token		t_token;
-typedef struct s_lexer		t_lexer;
-typedef struct s_cmd_len	t_cmd_len;
-
-typedef struct s_cmd_len
-{
-	size_t		len;
-	int			stauts;
-	t_cmd_len	*next;
-}	t_cmd_len;
 
 typedef struct s_token
 {
@@ -47,4 +37,10 @@ typedef struct s_lexer
 	int		num_token;
 }			t_lexer;
 
-#endif
+int		lexer_build(char *input, t_token **lexerbuf);
+
+t_token	*token_new();
+t_token	*token_last(t_token *list);
+void	token_add_back(t_token **list, t_token *new);
+
+#endif // !LEXER_H

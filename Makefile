@@ -5,7 +5,7 @@ INCLUDES		= 	includes
 
 LIBFT_PATH		= 	./libft/
 SRCS_PATH		= 	./srcs/
-SRCS_FILES		= 	main.c lexer/lexer.c free/free.c debug/debug_lexerbuf.c debug/debug_cmd_list.c parser/parser.c parser/parse_utils.c builtin/builtin.c
+SRCS_FILES		= 	main.c lexer/lexer.c lexer/lexer_utils.c free/free.c debug/debug_lexerbuf.c debug/debug_cmd_list.c parser/parser.c parser/parse_utils.c builtin/builtin.c
 
 SRCS			=	$(addprefix $(SRCS_PATH), $(SRCS_FILES))
 SRCS_OBJS		= 	$(SRCS:.c=.o)

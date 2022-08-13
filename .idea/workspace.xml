@@ -13,7 +13,16 @@
   <component name="ChangeListManager">
     <list default="true" id="92214a25-028e-49b4-8ca3-93d5c9397d67" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-4e40697893a45b911226.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-07-30T20-35-24-0093.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-minishell-Debug-293a7617b7cb145b0669.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/lexer.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/lexer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtin/builtin.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtin/builtin.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +85,7 @@
       <workItem from="1658580527530" duration="526000" />
       <workItem from="1658974822472" duration="2388000" />
       <workItem from="1659213010020" duration="1969000" />
-      <workItem from="1660393839938" duration="755000" />
+      <workItem from="1660393839938" duration="4802000" />
     </task>
     <servers />
   </component>

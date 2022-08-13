@@ -19,8 +19,8 @@ char **make_lst(t_cmd *cmd_list)
     int   i;
     int len;
 
-    printf("cmd_list = %s\n",cmd_list->args->content);
-    printf("cmd_list = %s\n",cmd_list->args->next->content);
+    printf("cmd_list = %s\n",(char *)cmd_list->args->content);
+    printf("cmd_list = %s\n",(char *)cmd_list->args->next->content);
     len = ft_lstsize(cmd_list->args);
     split_command = (char **)malloc(sizeof(char *) * len + 1);
     i = 0;
