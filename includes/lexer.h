@@ -42,5 +42,6 @@ int		lexer_build(char *input, t_token **lexerbuf);
 t_token	*token_new();
 t_token	*token_last(t_token *list);
 void	token_add_back(t_token **list, t_token *new);
+char	*ft_strjoin_c(char const *s1, char c);
 
 #endif // !LEXER_H

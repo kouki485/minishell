@@ -118,7 +118,7 @@ t_cmd	*lex_pars(char *input, t_cmd *cmd_list)//inputにはlineが入ってくる
 	}
 	free_token_list(lexerbuf);
 
-	debug_cmd_list(cmd_list);
+//	debug_cmd_list(cmd_list);
 	// printf("%p\n",cmd_list->args->next->next);
 	// printf("%s\n",cmd_list->args->content);
 	return (cmd_list);
