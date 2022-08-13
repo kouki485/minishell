@@ -7,10 +7,12 @@ void	node_update(t_token **lexerbuf) {
 	(void)lexerbuf;
 }
 
-int	stack_token(t_token **lexerbuf, char input) {
-	if (input == CHAR_WHITESPACE) {
+int	stack_token(t_token **lexerbuf, char *input) {
+	if (*input == CHAR_WHITESPACE) {
 		node_update(lexerbuf);
 		return STATE_GENERAL;
+	} else {
+		ft_strjoin((*lexerbuf)->data, input);
 	}
 	return (0);
 }
@@ -23,7 +25,7 @@ int	lexer_build(char *input, t_token **lexerbuf) {
 	token_status = STATE_GENERAL;
 	while (*input != '\0') {
 		if (token_status == STATE_GENERAL) {
-			token_status = stack_token(lexerbuf, *input);
+			token_status = stack_token(lexerbuf, input);
 		}
 
 		if (token_status == STATE_IN_DQUOTE) {
