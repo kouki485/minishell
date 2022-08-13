@@ -56,7 +56,6 @@ add_executable(minishell
         libft/ft_toupper.c
         libft/libft.h
         srcs/free/free.c
-        srcs/lexer/lexer.c
         srcs/parser/parser.c
         srcs/main.c
         srcs/debug/debug_lexerbuf.c includes/debug.h srcs/parser/parse_utils.c srcs/debug/debug_cmd_list.c)
