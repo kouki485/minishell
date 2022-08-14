@@ -99,24 +99,25 @@ void	free_token_list(t_token *token_list)
 
 t_cmd	*lex_pars(char *input, t_cmd *cmd_list)//inputにはlineが入ってくる
 {
-	int		res;
+//	int		res;
 	t_token	*lexerbuf;
-	t_cmd	*cp_cmd_list;
+//	t_cmd	*cp_cmd_list;
 
 	printf("\x1b[36m[debug] : input = %s\n\033[m", input);
-	res = lexer_build(input, &lexerbuf);
+//	res = lexer_build(input, &lexerbuf);
+	lexer_build(input, &lexerbuf);
 	free(input);
 
-	if (res == 0 && lexerbuf->data == NULL)
-		return (NULL);
+//	if (res == 0 && lexerbuf->data == NULL)
+//		return (NULL);
 
-	if (res == 1)
-	{
-		cp_cmd_list = cmd_new();
-		cmd_list = cp_cmd_list;
-		parser(lexerbuf, cp_cmd_list, &res);
-	}
-	free_token_list(lexerbuf);
+//	if (res == 1)
+//	{
+//		cp_cmd_list = cmd_new();
+//		cmd_list = cp_cmd_list;
+//		parser(lexerbuf, cp_cmd_list, &res);
+//	}
+//	free_token_list(lexerbuf);
 
 //	debug_cmd_list(cmd_list);
 	// printf("%p\n",cmd_list->args->next->next);

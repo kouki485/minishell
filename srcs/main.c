@@ -13,8 +13,8 @@ void execute_minishell(char **environ)
 			break;
 		add_history(line);
 		cmd_list = lex_pars(line, cmd_list);
-		compare_builtin(make_lst(cmd_list));
-		printf("%s\n",(char *)cmd_list->args->content);
+//		compare_builtin(make_lst(cmd_list));
+//		printf("%s\n",(char *)cmd_list->args->content);
 		printf("\x1b[36m[debug] : return main.c\n\033[m");
 	}
 	free(line);
