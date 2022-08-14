@@ -24,11 +24,20 @@ int	stack_token(t_token **lexerbuf, char input) {
 			token_add_back(lexerbuf, token_new(""));
 		}
 		return STATE_GENERAL;
+	} else if (input == CHAR_QOUTE) {
+		printf("\x1b[36m[debug] : IN CHAR_QOUTE\n\033[m");
+		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		} else {
+			token_add_back(lexerbuf, token_new(""));
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		}
+		return STATE_IN_QUOTE;
 	} else {
-		printf("\x1b[36m[debug] : IN CHAR NORMAL\n\033[m");
-		printf("\x1b[36m[debug] : input = %c\n\033[m", input);
-		token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
-		return STATE_GENERAL;
+			printf("\x1b[36m[debug] : IN CHAR NORMAL\n\033[m");
+			printf("\x1b[36m[debug] : input = %c\n\033[m", input);
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+			return STATE_GENERAL;
 	}
 }
 
@@ -43,12 +52,15 @@ int	lexer_build(char *input, t_token **lexerbuf) {
 			token_status = stack_token(lexerbuf, *input);
 		}
 
-		if (token_status == STATE_IN_DQUOTE) {
+		else if (token_status == STATE_IN_DQUOTE) {
 			printf("state_in_dquote in\n");
 		}
 
-		if (token_status == STATE_IN_QUOTE) {
+		else if (token_status == STATE_IN_QUOTE) {
 			printf("state_in_quote in\n");
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), *input);
+			if (*input == '\'')
+				token_status = STATE_GENERAL;
 		}
 		input++;
 	}
