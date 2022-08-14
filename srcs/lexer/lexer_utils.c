@@ -3,13 +3,14 @@
 //
 #include "../includes/lexer.h"
 
-t_token*	token_new() {
+t_token*	token_new(char *content) {
 	t_token	*new;
 
 	new = malloc(sizeof(new));
 	if (new == NULL)
 		return (NULL);
-	new->data = ft_strdup("");
+	printf("\x1b[36m[debug] : content = %s\n\033[m", content);
+	new->data = ft_strdup(content);
 	new->type = TOKEN;
 	new->next = NULL;
 	return (new);
