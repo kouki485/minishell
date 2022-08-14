@@ -14,7 +14,15 @@ int	stack_token(t_token **lexerbuf, char input) {
 		return STATE_GENERAL;
 	} else if(input == CHAR_PIPE) {
 		printf("\x1b[36m[debug] : IN CHAR_PIPE\n\033[m");
-		token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
+			printf("\x1b[36m[aaaaaaaa]\n\033[m");
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		} else {
+			printf("\x1b[36m[bbbbbbbb]\n\033[m");
+			token_add_back(lexerbuf, token_new(""));
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+			token_add_back(lexerbuf, token_new(""));
+		}
 		return STATE_GENERAL;
 	} else {
 		printf("\x1b[36m[debug] : IN CHAR NORMAL\n\033[m");

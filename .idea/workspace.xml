@@ -13,7 +13,7 @@
   <component name="ChangeListManager">
     <list default="true" id="92214a25-028e-49b4-8ca3-93d5c9397d67" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/lexer/lexer.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/lexer/lexer.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
       <workItem from="1658974822472" duration="2388000" />
       <workItem from="1659213010020" duration="1969000" />
       <workItem from="1660393839938" duration="7468000" />
-      <workItem from="1660485231176" duration="379000" />
+      <workItem from="1660485231176" duration="2110000" />
     </task>
     <servers />
   </component>
