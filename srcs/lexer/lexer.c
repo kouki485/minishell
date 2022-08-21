@@ -26,8 +26,43 @@ int	stack_token(t_token **lexerbuf, char input) {
 		return STATE_GENERAL;
 	}
 
+	else if(input == CHAR_GREATER) {
+		printf("\x1b[36m[debug] : IN CHAR_GREATER\n\033[m");
+		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		} else {
+			token_add_back(lexerbuf, token_new(""));
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+			token_add_back(lexerbuf, token_new(""));
+		}
+		return STATE_GENERAL;
+	}
+
+	else if(input == CHAR_LESSER) {
+		printf("\x1b[36m[debug] : IN CHAR_LESSER\n\033[m");
+		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		} else {
+			token_add_back(lexerbuf, token_new(""));
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+			token_add_back(lexerbuf, token_new(""));
+		}
+		return STATE_GENERAL;
+	}
+
 	else if (input == CHAR_QOUTE) {
 		printf("\x1b[36m[debug] : IN CHAR_QOUTE\n\033[m");
+		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		} else {
+			token_add_back(lexerbuf, token_new(""));
+			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
+		}
+		return STATE_IN_QUOTE;
+	}
+
+	else if (input == ';') {
+		printf("\x1b[36m[debug] : IN ;\n\033[m");
 		if (ft_strlen((token_last(*lexerbuf))->data) == 0) {
 			token_last(*lexerbuf)->data = ft_strjoin_c((token_last(*lexerbuf)->data), input);
 		} else {
